@@ -106,6 +106,7 @@ return (
               <td>{assignment.id}</td>
               <td>{assignment.title}</td>
               <td>{assignment.dueDate}</td>
+              <td><AssignmentGrade assignment = {assignment} onClose={fetchAssignments} /></td>
               <td><AssignmentUpdate editAssignment={assignment} onClose={fetchAssignments} /></td>
               <td><button onClick={() => onDelete(assignment.id)}>Delete</button></td>
             </tr>
