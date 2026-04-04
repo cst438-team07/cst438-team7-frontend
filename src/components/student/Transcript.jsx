@@ -66,8 +66,8 @@ const Transcript = () => {
                       <td>{c.year}</td>
                       <td>{c.semester}</td>
                       <td>{c.courseId}</td>
-                      <td>{c.sectionNo}</td>
-                      <td>{c.title}</td>
+                        <td>{c.sectionId}</td>   {/* fixed */}
+                        <td>{c.title}</td>
                       <td>{c.credits}</td>
                       <td>{c.grade}</td>
                     </tr>
