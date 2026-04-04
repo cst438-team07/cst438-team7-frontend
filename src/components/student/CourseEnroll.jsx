@@ -67,12 +67,12 @@ const CourseEnroll = () => {
    * enrollCourse
    * -----------------------------------------
    * Sends POST request to enroll student in selected section
-   * @param secNo - unique section primary key  ✅ UPDATED
+   * @param secNo - unique section primary key   UPDATED
    */
   const enrollCourse = async (secNo) => {
     try {
       const response = await fetch(
-          `${REGISTRAR_URL}/enrollments/sections/${secNo}`, // ✅ UPDATED
+          `${REGISTRAR_URL}/enrollments/sections/${secNo}`, // UPDATED
           {
             method: "POST",
             headers: {
@@ -116,7 +116,7 @@ const CourseEnroll = () => {
       buttons: [
         {
           label: "Yes",
-          onClick: () => enrollCourse(secNo), // ✅ UPDATED
+          onClick: () => enrollCourse(secNo), // UPDATED
         },
         {
           label: "No",
@@ -189,7 +189,7 @@ const CourseEnroll = () => {
                 <td>
                   <button
                       className="btn btn-primary"
-                      onClick={() => onEnroll(s.secNo)} // ✅ UPDATED
+                      onClick={() => onEnroll(s.secNo)} //  UPDATED
                   >
                     Add Course
                   </button>
