@@ -67,12 +67,12 @@ const CourseEnroll = () => {
    * enrollCourse
    * -----------------------------------------
    * Sends POST request to enroll student in selected section
-   * @param secId - unique section identifier
+   * @param secNo - unique section primary key  ✅ UPDATED
    */
-  const enrollCourse = async (secId) => {
+  const enrollCourse = async (secNo) => {
     try {
       const response = await fetch(
-          `${REGISTRAR_URL}/enrollments/sections/${secId}`,
+          `${REGISTRAR_URL}/enrollments/sections/${secNo}`, // ✅ UPDATED
           {
             method: "POST",
             headers: {
@@ -109,14 +109,14 @@ const CourseEnroll = () => {
    * Displays confirmation dialog before enrolling
    * Prevents accidental enrollments
    */
-  const onEnroll = (secId) => {
+  const onEnroll = (secNo) => { //  UPDATED
     confirmAlert({
       title: "Confirm Enrollment",
       message: "Do you want to enroll in this course?",
       buttons: [
         {
           label: "Yes",
-          onClick: () => enrollCourse(secId),
+          onClick: () => enrollCourse(secNo), // ✅ UPDATED
         },
         {
           label: "No",
@@ -168,7 +168,7 @@ const CourseEnroll = () => {
 
           {/* Render each section */}
           {sections.map((s) => (
-              <tr key={s.secId}>
+              <tr key={s.secNo}> {/*  UPDATED */}
                 <td>{s.secId}</td>
                 <td>{s.year}</td>
                 <td>{s.semester}</td>
@@ -189,7 +189,7 @@ const CourseEnroll = () => {
                 <td>
                   <button
                       className="btn btn-primary"
-                      onClick={() => onEnroll(s.secId)}
+                      onClick={() => onEnroll(s.secNo)} // ✅ UPDATED
                   >
                     Add Course
                   </button>
