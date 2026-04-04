@@ -1,3 +1,8 @@
+// Reece
+// Prompts instructor for title, and due date of new assignment.
+//
+// Prompt for title, due. With buttons for Close and Save.
+
 import { useState, useRef } from 'react';
 import {GRADEBOOK_URL, REGISTRAR_URL} from '../../Constants';
 import Messages from '../Messages';
@@ -65,5 +70,3 @@ const AssignmentAdd = ({ onClose, secNo }) => {
 }
 
 export default AssignmentAdd;
-
-// To be implemented. Prompt for title, due. With buttons for Close and Save.

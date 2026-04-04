@@ -1,10 +1,14 @@
+// Reece
+//Displays assignment title and due date and allows instructor to edit the values.
+//
+// Show the id, title and due date of the assignment.
+// Allow user to edit the title and due date. Buttons for Close and Save.
+
 import { useState, useRef } from 'react';
 import {GRADEBOOK_URL, REGISTRAR_URL} from '../../Constants';
 import Messages from '../Messages';
 
 const AssignmentUpdate = ({ editAssignment, onClose }) => {
-
-
   const [message, setMessage] = useState('');
   const [assignment, setAssignment] = useState({});
   const dialogRef = useRef();
@@ -67,5 +71,3 @@ return (
 
 export default AssignmentUpdate;
 
-// To be implemented.  Show the id, title and due date of the assignment.
-// Allow user to edit the title and due date. Buttons for Close and Save.
