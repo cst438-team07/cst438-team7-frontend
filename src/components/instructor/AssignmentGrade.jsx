@@ -113,4 +113,3 @@ const AssignmentGrade = ({ assignment, onClose }) => {
 };
 
 export default AssignmentGrade;
-

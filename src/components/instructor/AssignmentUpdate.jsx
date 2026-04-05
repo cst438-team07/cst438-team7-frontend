@@ -70,4 +70,3 @@ return (
 }
 
 export default AssignmentUpdate;
-
