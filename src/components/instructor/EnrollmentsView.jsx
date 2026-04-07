@@ -4,7 +4,6 @@ import { GRADEBOOK_URL } from '../../Constants';
 import Messages from '../Messages';
 
 const EnrollmentsView = () => {
-
   const [enrollments, setEnrollments] = useState([]);
   const [message, setMessage] = useState('');
 
@@ -13,43 +12,95 @@ const EnrollmentsView = () => {
 
   const fetchEnrollments = async () => {
     try {
-      const response = await fetch(`${GRADEBOOK_URL}/sections/${secNo}/enrollments`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem('jwt'),
-          },
-        }
-      );
+      const response = await fetch(`${GRADEBOOK_URL}/sections/${secNo}/enrollments`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': sessionStorage.getItem('jwt'),
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         setEnrollments(data);
       } else {
         const body = await response.json();
-        setMessage(body);
+        setMessage(body.message || "Failed to fetch enrollments");
       }
     } catch (err) {
-      setMessage(err);
+      setMessage(err.toString());
     }
   }
 
   useEffect(() => {
-    fetchEnrollments()
+    fetchEnrollments();
   }, []);
 
+  // Update the grade in the local state when the user types
+  const onGradeChange = (e, index) => {
+    const newEnrollments = [...enrollments];
+    newEnrollments[index].grade = e.target.value;
+    setEnrollments(newEnrollments);
+  };
 
-
-  const headers = ['enrollment id', 'student id', 'name', 'email', 'grade'];
+  // Save all grades back to the server
+  const saveGrades = async () => {
+    try {
+      const response = await fetch(`${GRADEBOOK_URL}/enrollments`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': sessionStorage.getItem('jwt'),
+        },
+        body: JSON.stringify(enrollments),
+      });
+      if (response.ok) {
+        setMessage("Grades saved successfully!");
+      } else {
+        const body = await response.json();
+        setMessage(body.message || "Error saving grades");
+      }
+    } catch (err) {
+      setMessage(err.toString());
+    }
+  };
 
   return (
-    <>
+    <div className="container">
       <h3> {courseId}-{secId} Enrollments</h3>
       <Messages response={message} />
-      <p>To be implemented. Display table with column headers as given in headers.
-        Allow user to edit the grade.  One button to Save all grades.
-      </p>
-    </>
+      
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Enrollment ID</th>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {enrollments.map((row, index) => (
+            <tr key={row.enrollmentId}>
+              <td>{row.enrollmentId}</td>
+              <td>{row.name}</td>
+              <td>{row.email}</td>
+              <td>
+                <input 
+                  type="text" 
+                  value={row.grade || ''} 
+                  onChange={(e) => onGradeChange(e, index)} 
+                  style={{width: '50px'}}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      
+      <button className="btn btn-primary" onClick={saveGrades}>
+        Save All Grades
+      </button>
+    </div>
   );
 }
 
