@@ -137,7 +137,7 @@ const ScheduleView = () => {
    * Includes both internal (secNo) and display (secId) identifiers
    * as defined by the assignment template
    */
-  const headings = ["enrollmentId", "secNo", "courseId", "secId", "building", "room", "times", ""];
+  const headings = ["enrollmentId", "sectionNo", "courseId", "sectionId", "building", "room", "times", ""];
 
   return (
       <div>
@@ -167,12 +167,12 @@ const ScheduleView = () => {
                     <td>{e.enrollmentId}</td>
 
                     {/* Internal primary key (not user-facing) */}
-                    <td>{e.secNo}</td>
+                    <td>{e.sectionNo}</td>
 
                     <td>{e.courseId}</td>
 
                     {/* User-facing section identifier */}
-                    <td>{e.secId}</td>
+                    <td>{e.sectionId}</td>
 
                     <td>{e.building}</td>
                     <td>{e.room}</td>
